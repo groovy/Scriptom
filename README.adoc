@@ -1,0 +1,40 @@
+= Let's revive Scriptom !!
+
+Unfortunately the Scriptom project was lost with the closure of Codehaus. This is an attempt to resurrect it.
+
+== What is Scriptom
+
+**Scriptom** provides a simple yet powerful COM library for Groovy. It is implemented as a thin layer around [JACOB (Java COM Bridge)](https://sourceforge.net/projects/jacob-project/). JACOB is a mature open-source library for Java that supports communicating with COM libraries and automation servers on Microsoft Windows.
+
+**Scriptom** attempts to mirror all the functionality of JACOB, but in a "groovy" way. Here is a quick example that uses 
+`Scripting.FileSystemObject` to list the paths to all active rooted drives on your system (italics show COM methods and properties):
+
+[source,lang='groovy']
+----
+  new ActiveXObject('Scripting.FileSystemObject').Drives.findAll{it.IsReady}.each{println it.Path}       `
+----
+
+Visual Basic was never this easy!
+
+=== Supported Variant Types and Translation Notes
+
+[cols="5*",options="header"]
+|===
+| Variant-Type | Supported? | Java | VB6/VBA | Comments
+
+| Empty |Yes|`null`|`Variant.Empty`|
+| Null  |Yes|`VariantNull`|`Variant.Null`|Don't be confused. `Variant.Null` is not the same as `null`. This is by design.
+| Short |Yes|`Short`|`Integer`|An `Integer` in VB6 represents a 16-bit signed value.
+| Int   |Yes|`Integer`|`Long`|A `Long` in VB6 represents a 32-bit signed value.
+| Long  |Yes|`Long/BigInteger`| |A 64-bit signed value. Supported by .NET. `BigInteger` supports arbitrary-precision integers, so there may be errors associated with converting a `BigInteger` to a 64-bit integer.
+
+|===
+
+By default, all Variants in **Scriptom** are passed by value (not `byref`). Note that it is safe to pass values `byval` 
+even when the method argument is marked as 'byref.' In COM, 'byref' arguments allow a method to change a value which is 
+then reflected in the calling scope. If you need to do this, take a look at the `VariantByref` class. You shouldn't run 
+into this very often with the standard COM libraries, but isn't it nice to know we've got your back?
+
+Unsigned integer types are also supported by **Scriptom**. 
+Each COM unsigned type is converted to equivalent signed Java type.
+
