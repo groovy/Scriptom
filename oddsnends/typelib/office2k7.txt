@@ -1,0 +1,9 @@
+//Type library locations on Windows XP.
+[
+  ['office2007',             'C:/Program Files/Common Files/Microsoft Shared/Office12/MSO.dll'],
+  ['office2007.excel',       'C:/Program Files/Microsoft Office/OFFICE12/EXCEL.exe'],
+  ['office2007.word',        'C:/Program Files/Microsoft Office/OFFICE12/MSWORD.olb'],
+  ['office2007.outlook',     'C:/Program Files/Microsoft Office/OFFICE12/MSOutl.olb'],
+  ['office2007.powerpoint',  'C:/Program Files/Microsoft Office/OFFICE12/msppt.olb'],
+  ['office2007.visio',       'C:/Program Files/Microsoft Office/OFFICE12/vislib.dll']
+]

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Download Scriptom</title>
+    <author email="dev@groovy.codehaus.org">Jason Smith</author>
+  </properties>
+  <body>
+    <section name="Download Scriptom">
+      <p>
+		<a href="http://repository.codehaus.org/org/codehaus/groovy/modules/scriptom/scriptom-all-assembly/${project.version}/scriptom-all-assembly-${project.version}.zip">Scriptom ${project.version}</a>
+	<!-- Scriptom 1.6.0|http://repository.codehaus.org/org/codehaus/groovy/modules/scriptom/scriptom-all-assembly/1.6.0/scriptom-all-assembly-1.6.0.zip] (4/8/2009) - No new features or bug fixes.  Distribution for *Windows Installer*.  Includes only compiled artifacts.  Supports *Groovy 1.5* and up. -->
+	  </p>
+
+	</section>
+  </body>
+</document>

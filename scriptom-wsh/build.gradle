@@ -1,0 +1,5 @@
+
+description = 'Microsoft Windows Scripting Host Type Library'
+dependencies {
+  compile project(':scriptom')
+}

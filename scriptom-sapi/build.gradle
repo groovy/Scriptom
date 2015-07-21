@@ -1,0 +1,5 @@
+
+description = 'Microsoft Speech API Type Library'
+dependencies {
+  compile project(':scriptom')
+}

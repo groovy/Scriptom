@@ -1,0 +1,5 @@
+
+description = 'Microsoft Office 2003 Type Libraries'
+dependencies {
+  compile project(':scriptom')
+}

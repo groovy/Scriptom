@@ -1,22 +1,64 @@
-// Not going to be org.codehaus anymore, so choose something useful
-group = 'this.will.be.a.new.group'
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
 
-// Probably want to target later Groovy so let's adjust the version as well
-version = '2.4.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'maven'
-
-repositories {
-    jcenter()
-    mavenCentral()
+    dependencies {
+        classpath "com.netflix.nebula:gradle-extra-configurations-plugin:2.2.2"
+    }
 }
 
-dependencies {
-    compile 'org.codehaus.groovy:groovy-all:[2.4.0,2.4.99]'
-    compile 'net.sf.jacob-project:jacob:1.14.3'
+allprojects  {
+    // Not going to be org.codehaus anymore, so choose something useful
+    group = 'this.will.be.a.new.group'
 
-//    testCompile('org.spockframework:spock-core:1.0-groovy-2.3') {
-//        exclude(module: 'groovy-all')
-//    }
+    // Probably want to target later Groovy so let's adjust the version as well
+    version = '2.4.0-SNAPSHOT'
+
+//    group = 'org.codehaus.groovy.modules.scriptom'
+//    version = '1.6.1-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'maven'
+    apply plugin: 'nebula.provided-base'
+
+    ext {
+        groovyVer = '1.8.0'
+//        groovyVer = '[2.4.0,2.4.99]'
+        jacobVer = '1.14.3'
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        provided group: 'org.codehaus.groovy', name: 'groovy', version: groovyVer
+        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer
+        testCompile 'junit:junit:4.11'
+//        testCompile group: 'org.codehaus.groovy', name: 'groovy', version: groovyVer
+//        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x64'
+//        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x86'
+    }
+
+    // Probably want to go 1.6 here anyway
+//    sourceCompatibility = 1.5
+//    targetCompatibility = 1.5
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    task packageSources(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts{
+        archives packageSources
+    }
+
 }

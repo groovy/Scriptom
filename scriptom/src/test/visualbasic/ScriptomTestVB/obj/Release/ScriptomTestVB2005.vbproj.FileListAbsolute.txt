@@ -1,0 +1,9 @@
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ResolveAssemblyReference.cache
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ScriptomTestVB2005.Resources.resources
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ScriptomTestVB2005.vbproj.GenerateResource.Cache
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ScriptomTestVB2005.dll
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ScriptomTestVB2005.xml
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\obj\Release\ScriptomTestVB2005.pdb
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\bin\Release\ScriptomTestVB2005.dll
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\bin\Release\ScriptomTestVB2005.pdb
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\visualbasic\ScriptomTestVB2005\bin\Release\ScriptomTestVB2005.xml

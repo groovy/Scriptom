@@ -1,0 +1,5 @@
+
+description = 'Microsoft Internet Explorer 6 Type Library'
+dependencies {
+  compile project(':scriptom')
+}

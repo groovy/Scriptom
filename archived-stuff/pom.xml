@@ -1,0 +1,369 @@
+
+<!--
+  The command lines for builds aren't hard, but I always forget the particulars - profiles, order of goals, etc.
+  Here is how this was *intended* to work.  Not that this is any guarantee it actually will.
+
+  BUILDS:
+      LOCAL:
+	    >mvn clean install
+		
+	  SNAPSHOT:
+	    >mvn clean install deploy
+		
+	  RELEASE:
+	    >mvn clean install deploy -Preleases
+	  
+  SITE DOCUMENTATION:
+	  Build the maven-scriptom-plugin locally.  This project is not deployed.  You need it to filter project properties.
+	    ...\maven-scriptom-plugin>mvn clean install site:stage -Preports
+	  
+	  You can usually verify documentation with site:stage, but the filtering mojo isn't designed to work with that.  
+	  site:stage is, however, much faster than dumping site documentation to a SNAPSHOT website.
+	  
+	  SNAPSHOT:
+	    >mvn site:site org.codehaus.groovy.modules.scriptom:maven-scriptom-plugin:1.6.1-SNAPSHOT:filter-site site:deploy -e
+	
+	  RELEASE:
+	    >set MAVEN_OPTS=-Xmx512m
+	    >mvn site:site org.codehaus.groovy.modules.scriptom:maven-scriptom-plugin:1.6.1-SNAPSHOT:filter-site site:deploy -e -Preports,releases
+	 
+      You should generally separate your builds from your site generation.   
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.codehaus.groovy.modules.scriptom</groupId>
+    <artifactId>scriptom-module-pom</artifactId>
+    <packaging>pom</packaging>
+    <name>Scriptom COM Scripting</name>
+    <version>1.6.1-SNAPSHOT</version>
+    <description>Windows COM scripting for Groovy.  Based on the JACOB (Java COM Bridge) library for Java, with syntax that is closer to VBScript.</description>
+    <prerequisites>
+        <maven>2.0.9</maven>
+    </prerequisites>
+    <modules>
+      	<module>scriptom</module>
+		<module>scriptom-office-2k7</module>
+		<module>scriptom-office-2k3</module>
+		<module>scriptom-wbem</module>
+		<module>scriptom-sapi</module>
+		<module>scriptom-wsh</module>
+		<module>scriptom-ie-6</module>
+		<module>scriptom-scripting</module>
+		<module>scriptom-all-assembly</module>
+    </modules>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>codehaus.org.snapshots</id>
+			<name>Groovy Central Development Repository</name>
+			<url>dav:https://dav.codehaus.org/snapshots.repository/groovy</url>
+		</snapshotRepository>
+		<site>
+			<id>codehaus.org.snapshots</id>
+			<name>Groovy Website</name>
+			<url>dav:https://dav.codehaus.org/groovy/modules/scriptom/SNAPSHOT/${project.version}</url>
+		</site>
+	</distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<jacob.version>1.14.3</jacob.version>
+	<gmaven.version>1.3</gmaven.version>
+	<gmaven.provider>1.7</gmaven.provider>
+	<groovy.version>1.8.0</groovy.version>
+    </properties>
+
+    <url>http://groovy.codehaus.org/COM+Scripting</url>
+
+    <inceptionYear>2009</inceptionYear>
+
+    <organization>
+        <name>Groovy</name>
+        <url>http://groovy.codehaus.org</url>
+    </organization>
+
+    <mailingLists>
+        <mailingList>
+            <name>Development List</name>
+            <subscribe>dev-subscribe@groovy.codehaus.org</subscribe>
+            <unsubscribe>dev-unsubscribe@groovy.codehaus.org</unsubscribe>
+            <post>dev@groovy.codehaus.org</post>
+            <archive>http://archive.groovy.codehaus.org/dev</archive>
+        </mailingList>
+        <mailingList>
+            <name>User List</name>
+            <subscribe>user-subscribe@groovy.codehaus.org</subscribe>
+            <unsubscribe>user-unsubscribe@groovy.codehaus.org</unsubscribe>
+            <post>user@groovy.codehaus.org</post>
+            <archive>http://archive.groovy.codehaus.org/user</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits List</name>
+            <subscribe>scm-subscribe@groovy.codehaus.org</subscribe>
+            <unsubscribe>scm-unsubscribe@groovy.codehaus.org</unsubscribe>
+            <archive>http://archive.groovy.codehaus.org/scm</archive>
+        </mailingList>
+    </mailingLists>
+    
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.codehaus.org/browse/GMOD</url>
+    </issueManagement>
+    
+    <scm>
+        <connection>scm:svn:http://svn.codehaus.org/groovy/modules/scriptom/trunk</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/groovy/modules/scriptom/trunk</developerConnection>
+        <url>http://fisheye.codehaus.org/browse/groovy/modules/scriptom/trunk</url>
+    </scm>
+    
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>${project.build.directory}/test-resources</directory>
+            </testResource>
+        </testResources>
+        
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
+
+        <defaultGoal>install</defaultGoal>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmaven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>${gmaven.version}</version>  
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.4.2</version>                    
+                </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.0.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>        
+        <plugins>
+        	<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.6,1.6.0-99]</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[2.0.9,)</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+
+                    <quiet>true</quiet>
+                    <links>
+                        <link>http://java.sun.com/javase/6/docs/api</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Add JavaDoc Artifact</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>   
+            </plugin>             
+            <plugin>
+                <!--  Download sources that are viewable in eclipse. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <configuration>
+                    <providerSelection>${gmaven.provider}</providerSelection>
+                </configuration> 
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>Add JACOB support</id>
+                        <phase>validate</phase>
+                        <goals><goal>execute</goal></goals>
+                        <configuration>
+                            <source>
+                            <![CDATA[
+                                import com.jacob.com.LibraryLoader
+								
+                                File testResources = new File(project.build.directory + '/test-resources')
+                                testResources.mkdirs()
+								File dll = project.artifacts.find {it.id.startsWith("net.sf.jacob-project:jacob:dll:${LibraryLoader.shouldLoad32Bit()?'x86':'x64'}:")}.file
+                                new File(testResources, '/jacob-dll-path.properties').withWriter {it << 'jacob.dll.path=' + dll.canonicalPath.replace('\\', '/')}
+                            ]]>
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions> 
+            </plugin>         
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Add Source Artifact</id>                      
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>    
+        </plugins>
+    </build>
+    <dependencies>   
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jacob-project</groupId>
+            <artifactId>jacob</artifactId>
+            <version>${jacob.version}</version>
+            <type>jar</type>
+        </dependency>                     
+        <dependency>
+            <groupId>net.sf.jacob-project</groupId>
+            <artifactId>jacob</artifactId>
+            <version>${jacob.version}</version>
+            <type>dll</type>
+            <classifier>x64</classifier>
+            <scope>provided</scope>
+        </dependency> 
+        <dependency>
+            <groupId>net.sf.jacob-project</groupId>
+            <artifactId>jacob</artifactId>
+            <version>${jacob.version}</version>
+            <type>dll</type>
+            <classifier>x86</classifier>
+            <scope>provided</scope>
+        </dependency> 
+    </dependencies>
+    <developers>
+        <developer>
+            <id>jasonsmith</id>
+            <name>Jason Smith</name>
+            <email>dev@groovy.codehaus.org</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer> 
+        <developer>
+            <id>?</id>
+            <name>Guillaume Laforge</name>
+            <roles><role>Developer</role></roles>
+        </developer> 
+		<developer>
+			<id>?</id>
+            <name>Dierk Koenig</name>
+            <roles><role>Developer</role></roles>
+        </developer>
+        <developer>
+        	<id>?</id>
+            <name>Marc Guillemot</name>
+            <roles><role>Developer</role></roles>
+        </developer>
+    </developers>
+	<profiles>
+		<profile>
+			<id>releases</id>
+		    <distributionManagement>
+				<repository>
+					<id>codehaus.org</id>
+					<name>Groovy Central Repository</name>
+					<url>dav:https://dav.codehaus.org/repository/groovy</url>
+				</repository>
+				<site>
+					<id>codehaus.org.snapshots</id>
+					<name>Groovy Website</name>
+					<url>dav:https://dav.codehaus.org/groovy/modules/scriptom/${project.version}</url>
+				</site>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>reports</id>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<maxmemory>512m</maxmemory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<version>2.4.2</version>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>
+	</profiles>
+</project>

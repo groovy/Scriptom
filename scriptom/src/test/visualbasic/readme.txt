@@ -1,0 +1,1 @@
+The test DLLs are built using Visual Basic 2008 Express Edition, .NET 3.5.  The password to "scriptom.pfx" is "groovy".  There is no need to rebuild the DLL, since the POM registers it using "RegAsm.exe".  You will need to have the .NET 3.5 Framework installed for the tests to run.

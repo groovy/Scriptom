@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Installation</title>
+    <author email="dev@groovy.codehaus.org">Jason Smith</author>
+  </properties>
+  <body>
+    <section name="Installation">
+      <subsection name="Requirements">
+        <p><b>Scriptom</b> requires the following software:</p>
+        <ul>
+          <li><b>Groovy 1.5</b> or better</li>
+          <li><b>Java 1.5</b> or better</li>
+          <li><b>Windows</b> running on an <b>x86</b> or <b>x64</b> architecture; <b>Itanium</b> (<b>IA-64</b>) is not supported</li>
+          <li>
+            <b>Microsoft Visual C+\+ 2005 SP1 Redistributable Package</b>; this is not included in <b>Windows</b> by default
+            <table>
+              <tr>
+                <td>x86/32-bit&#160;Java<br/>x64&#160;(AMD)/32-bit&#160;Java</td>
+                <td>
+                  <a href="http://www.microsoft.com/downloads/details.aspx?familyid=200B2FD9-AE1A-4A14-984D-389C36F85647&amp;displaylang=en">
+                    Microsoft Visual C+\+ 2005 SP1 Redistributable Package (x86)
+                  </a> for 32-bit Java running on any processor architecture.
+                </td>
+              </tr>
+              <tr>
+                <td>x64&#160;(AMD)/64-bit&#160;Java</td>
+                <td>
+                  <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=eb4ebe2d-33c0-4a47-9dd4-b9a6d7bd44da&amp;DisplayLang=en">
+                    Microsoft Visual C+\+ 2005 SP1 Redistributable Package (x64)
+                  </a> for 64-bit Java running on the AMD x64 architecture. 
+                </td>
+              </tr>
+              <tr>
+                <td>IA-64 (Itanium)</td>
+                <td>Not supported.  See <a href="https://sourceforge.net/projects/jacob-project/">JACOB - Java COM Bridge</a> for more information.</td>
+              </tr>
+            </table>
+          </li>
+        </ul>
+      </subsection>
+      <subsection name="Windows Installer">
+        <p><b>Scriptom</b> is included as part of the Groovy <a href="http://groovy.codehaus.org/Download">Windows Installer</a> - 
+        a "one-click" setup for Groovy on Windows.
+        Install the latest version, and you can start writing scripts that include COM-automation immediately.</p>
+      </subsection>
+      <subsection name="Download">
+        <p>
+          If you are looking for a complete, pre-packaged distribution of <b>Scriptom</b>, you can download the
+          <a href="http://repository.codehaus.org/org/codehaus/groovy/modules/scriptom/scriptom-all-assembly/${project.version}/scriptom-all-assembly-${project.version}.zip">scriptom-all-assembly</a>
+          ZIP file.  This includes the <b>Scriptom JAR</b>, the <b>JACOB</b> JAR and its DLLs, the complete set 
+          of type library JARs, and supplemental information.  It does not include
+          Groovy and its dependencies (since <b>Scriptom</b> can run on different versions
+          of Groovy). 
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

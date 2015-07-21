@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>scriptom-module-pom</artifactId>
+    <groupId>org.codehaus.groovy.modules.scriptom</groupId>
+    <version>1.6.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>scriptom-all-assembly</artifactId>
+  <packaging>pom</packaging>
+  <name>Scriptom-All Assembly</name>
+  <description>
+	Assembly that includes the Scriptom JAR, the JACOB JAR and its DLLs, the standard set 
+	of type library JARs, and supplemental information.  This project does not include
+	Groovy and its dependencies (since versions of Scriptom can run on different versions
+	of Groovy).  The contents of this project are 
+    included in the latest Windows Installer for Groovy, and may also be used to add full
+    support for Scriptom to Groovy applications running on the Windows platform.
+  </description>
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <name>Internal Releases</name>
+      <url></url>
+    </repository>
+  </distributionManagement>  
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-ie-6-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+	<dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-office-2k3-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-office-2k7-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-sapi-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-wbem-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-wsh-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>scriptom-scripting-tlb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jacob-project</groupId>
+      <artifactId>jacob</artifactId>
+      <version>1.14.3</version>
+    </dependency> 
+    <dependency>
+      <groupId>net.sf.jacob-project</groupId>
+      <artifactId>jacob</artifactId>
+      <version>1.14.3</version>
+      <type>dll</type>
+      <classifier>x64</classifier>
+    </dependency> 
+    <dependency>
+      <groupId>net.sf.jacob-project</groupId>
+      <artifactId>jacob</artifactId>
+      <version>1.14.3</version>
+      <type>dll</type>
+      <classifier>x86</classifier>
+    </dependency> 
+  </dependencies>
+  <build> 
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId> 
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <configuration>
+          <providerSelection>1.6</providerSelection>
+        </configuration> 
+        <executions>
+          <execution>
+            <id>Assemble Dependencies</id>
+            <phase>package</phase>
+            <goals><goal>execute</goal></goals>
+            <configuration>
+              <source>
+              <![CDATA[
+                /*
+                 * Assembles all the dependencies into a folder, turns the folder into a ZIP file,
+                 * then adds it as an attached artifact.
+                 */
+                import org.apache.maven.artifact.Artifact;
+                import org.apache.maven.artifact.handler.ArtifactHandler;
+                import org.apache.maven.project.artifact.AttachedArtifact;
+                
+                File assemblyFolder = new File(new File(project.build.directory), "scriptom-assembly");
+                assemblyFolder.mkdir()
+
+                ant.copy(todir: new File(assemblyFolder, 'supplementary/Scriptom').canonicalPath)
+                {
+                	fileset(dir: new File(project.basedir,'/src/main/supplementary').canonicalPath)
+                }
+                
+                
+                [ 'org.codehaus.groovy.modules.scriptom:scriptom',
+                  'net.sf.jacob-project:jacob' ].each 
+                {String artifactName ->
+                  assert project.artifacts.any {it.id.startsWith(artifactName)}
+                    
+                  project.artifacts.each 
+                  {Artifact artifact ->
+                    if(artifact.id.startsWith(artifactName))
+                    {
+					  String folder = artifact.file.name.endsWith(".dll")? "bin" : "lib"
+                      ant.copy(file: artifact.file.canonicalPath, todir: new File(assemblyFolder, folder).canonicalPath);
+                    }
+                  }
+                }
+                
+                /*
+                 * Zip it and add it as an attached artifact.  May seem complicated, but it's still better
+                 * than the maven-assembly-plugin.
+                 */
+                File zipFile = new File(project.build.directory + '/' + project.artifactId + '.zip')
+                ant.zip(basedir: assemblyFolder.canonicalPath, destfile: zipFile.canonicalPath)
+                
+                Artifact artifact = new AttachedArtifact(
+                  project.artifact, 
+                  'zip', 
+                  [
+                    getClassifier:          {null},
+                    getDirectory:           {'zips'},
+                    getExtension:           {'zip'},
+                    getLanguage:            {'java'},
+                    getPackaging:           {'zip'},
+                    isAddedToClasspath:     {false},
+                    isIncludesDependencies: {false}
+                  ] as ArtifactHandler);
+		        artifact.setFile(zipFile);
+		        artifact.setResolved(true);
+		        project.addAttachedArtifact(artifact);
+              ]]>
+              </source>
+            </configuration>
+          </execution>
+        </executions> 
+      </plugin>            
+    </plugins>
+  </build>
+</project>

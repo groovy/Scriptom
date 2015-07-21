@@ -1,0 +1,5 @@
+
+description = 'Microsoft WBEM Scripting Type Library'
+dependencies {
+  compile project(':scriptom')
+}

@@ -1,0 +1,204 @@
+<html>
+  <body>
+    <p>
+      <b>Scriptom</b> provides a simple yet powerful COM library for Groovy.
+      It is implemented as a thin layer around  
+      <a href="https://sourceforge.net/projects/jacob-project/">JACOB (Java COM Bridge)</a>.
+      JACOB is a mature open-source library for Java that supports communicating with COM libraries
+      and automation servers on Microsoft Windows.
+    </p>
+    <p>
+      <b>Scriptom</b> attempts to mirror all the functionality of JACOB, but in a "groovy" way.
+      Here is a quick example that uses <code>Scripting.FileSystemObject</code> to list the paths
+      to all active rooted drives on your system (italics show COM methods and properties):
+    </p>
+    <blockquote>
+      <code>
+        new ActiveXObject('Scripting.FileSystemObject').<i>Drives</i>.findAll{it.<i>IsReady</i>}.each{println it.<i>Path</i>}
+      </code>
+    </blockquote>
+    <p>
+      Visual Basic was never this easy!
+    </p>
+    
+    <p>
+      <h3>Supported Variant Types and Translation Notes</h3>
+      <table border=1>
+        <tr>
+          <th>Variant-Type</th>
+          <th>Supported?</th>
+          <th>Java</th>
+          <th>VB6/VBA</th>
+          <th>Comments</th>
+        </tr>
+        <tr>
+          <td>Empty</td>
+          <td>Yes</td>
+          <td>null</td>
+          <td>Variant.Empty</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Null</td>
+          <td>Yes</td>
+          <td>VariantNull</td>
+          <td>Variant.Null</td>
+          <td>Don't be confused.  Variant.Null is not the same as <code>null</code>.  This is
+              by design.</td>
+        </tr>
+        <tr>
+          <td>Short</td>
+          <td>Yes</td>
+          <td>Short</td>
+          <td>Integer</td>
+          <td>An <code>Integer</code> in VB6 represents a 16-bit signed value.</td>
+        </tr>
+        <tr>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>Integer</td>
+          <td>Long</td>
+          <td>A <code>Long</code> in VB6 represents a 32-bit signed value.</td>
+        </tr>
+        <tr>
+          <td>Long</td>
+          <td>Yes</td>
+          <td>Long/BigInteger</td>
+          <td>-</td>
+          <td>A 64-bit signed value. Supported by .NET.  BigInteger supports arbitrary-precision
+          integers, so there may be errors associated with converting a BigInteger to a 64-bit integer.</td>
+        </tr>
+        <tr>
+          <td>Float</td>
+          <td>Yes</td>
+          <td>Float</td>
+          <td>Single</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Double</td>
+          <td>Yes</td>
+          <td>Double</td>
+          <td>Double</td>
+          <td>Note that <code>BigDecimal</code>s are converted to <code>Double</code>s.</td>
+        </tr>
+        <tr>
+          <td>Currency</td>
+          <td>Yes</td>
+          <td>BigDecimal</td>
+          <td>Variant.Currency</td>
+          <td>
+          Currency is mapped to Variant.Decimal by 
+          <strong>Scriptom,</strong>
+          overriding the default behavior in Jacob.
+          Currency has less precision than Decimal, so there may be errors in the conversion.
+        </td>
+        </tr>
+        <tr>
+          <td>Decimal</td>
+          <td>yes</td>
+          <td>BigDecimal</td>
+          <td>-</td>
+          <td>Decimal is supported by .NET.  For VB6, the COM layer will convert a Decimal
+          to the equivalent type automatically. BigDecimal can contain numbers larger than
+          Decimal, so there are issues converting very large numbers.</td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>Yes</td>
+          <td>Date</td>
+          <td>Date</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>String</td>
+          <td>Yes</td>
+          <td>String</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Dispatch</td>
+          <td>Yes</td>
+          <td>COM Object</td>
+          <td>ActiveXObject</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Error</td>
+          <td>Partial</td>
+          <td>VariantError</td>
+          <td>MISSING parameter, ???</td>
+          <td>
+            JACOB partially supports this type as of version 1.12. 
+            Scriptom can consume VariantError instances,
+            but can only create the value corresponding to MISSING (0x8002004).  If you attempt
+            to pass a VariantError other than MISSING as an argument, it is passed as an 
+            integer.
+          </td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>Yes</td>
+          <td>Boolean</td>
+          <td>Boolean</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Variant</td>
+          <td>Yes</td>
+          <td>Java POJO</td>
+          <td>Variant</td>
+          <td>
+            <b>Scriptom</b> supports type Variant when combined with <i>Array</i>,
+            which is an array that can hold any variant type.
+          </td>
+        </tr>
+        <tr>
+          <td style='white-space:nowrap'>Object (Unknown)</td>
+          <td>No</td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unknown how this is used.  JACOB does not appear to support it.</td>
+        </tr>
+        <tr>
+          <td>Byte</td>
+          <td>Yes</td>
+          <td>Byte</td>
+          <td>Byte</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>TypeMask</td>
+          <td>No</td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unknown what this is used for.  Does not appear to be supported by JACOB.</td>
+        </tr>
+        <tr>
+          <td>Array</td>
+          <td>Yes</td>
+          <td>SafeArrayProxy</td>
+          <td>Variant</td>
+          <td>JACOB supports Variant Array conversion to and from SafeArrays.  SafeArrays support a 
+              subset of the Variant types, and byref passing is not currently working.
+              The <b>Scriptom</b> <code>SafeArrayProxy</code> fully supports typed, n-dimensional
+              SafeArrays.</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      By default, all Variants in <b>Scriptom</b> are passed by value (not 'byref').  Note that it is
+      safe to pass values 'byval' even when the method argument is marked as 'byref.'  
+      In COM, 'byref' arguments allow a method to change a value which is then reflected 
+      in the calling scope.  If you need to do this, take a look at the <code>VariantByref</code>
+      class.  You shouldn't run into this very often with the standard COM libraries, but isn't
+      it nice to know we've got your back?
+    </p>
+    <p>
+      Unsigned integer types are also supported by <b>Scriptom</b>. Each COM unsigned type
+      is converted to equivalent signed Java type.
+    </p>
+
+  </body>
+</html>

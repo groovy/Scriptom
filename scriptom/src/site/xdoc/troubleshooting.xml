@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Troubleshooting</title>
+    <author email="dev@groovy.codehaus.org">Jason Smith</author>
+  </properties>
+  <body>
+    <section name="Troubleshooting">
+      <subsection name="java.lang.UnsatisfiedLinkError">
+        <p>
+          <strong><b>Symptom:</b></strong><br/>
+          A <code>java.lang.UnsatisfiedLinkError</code> when you run any <b>Scriptom</b> method.
+        </p>
+        <p>
+          <strong><b>Solution:</b></strong><br/>
+          Install the appropriate <b>Microsoft Visual C+\+ 2005 SP1 Redistributable Package</b>.  See <a href="installation.html">Installation</a>.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,14 @@
+//Type library locations on Windows XP.
+[
+  ['scripting',          'C:/WINDOWS/System32/scrrun.dll'],
+  ['office',             'C:/Program Files/Common Files/Microsoft Shared/Office11/MSO.dll'],
+  ['office.excel',       'C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe'],
+  ['office.word',        'C:/Program Files/Microsoft Office/OFFICE11/MSWORD.olb'],
+  ['office.outlook',     'C:/Program Files/Microsoft Office/OFFICE11/MSOutl.olb'],
+  ['office.powerpoint',  'C:/Program Files/Microsoft Office/OFFICE11/msppt.olb'],
+  ['office.access',      'C:/Program Files/Microsoft Office/OFFICE11/msacc.olb'],
+  ['sapi',               'C:/Program Files/Common Files/Microsoft Shared/Speech/sapi.dll'],
+  ['ie',                 'C:/Windows/System32/shdocvw.dll'],
+  ['wscript',            'C:/Windows/System32/wshom.ocx'],
+  ['wbemscripting',      'C:/Windows/System32/wbem/wbemdisp.tlb']
+]

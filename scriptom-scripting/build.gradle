@@ -1,0 +1,5 @@
+
+description = 'Microsoft Scripting-Runtime Type Library'
+dependencies {
+  compile project(':scriptom')
+}

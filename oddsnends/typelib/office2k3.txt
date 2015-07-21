@@ -1,0 +1,9 @@
+//Type library locations on Windows XP.
+[
+  ['office',             'C:/Program Files/Common Files/Microsoft Shared/Office11/MSO.dll'],
+  ['office.excel',       'C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe'],
+  ['office.word',        'C:/Program Files/Microsoft Office/OFFICE11/MSWORD.olb'],
+  ['office.outlook',     'C:/Program Files/Microsoft Office/OFFICE11/MSOutl.olb'],
+  ['office.powerpoint',  'C:/Program Files/Microsoft Office/OFFICE11/msppt.olb'],
+  ['office.access',      'C:/Program Files/Microsoft Office/OFFICE11/msacc.olb'],
+]

@@ -1,0 +1,5 @@
+//Type library locations on Windows XP.
+[
+  //['vbtests','C:/work/groovy/modules/scriptom/trunk/scriptom/src/test/visualbasic/ScriptomTestVB/bin/Release/ScriptomTestVB.tlb'],
+  ['csharptests','C:/work/groovy/modules/scriptom/trunk/scriptom/src/test/csharp/ScriptomTestCSharp/ScriptomTestCSharp/bin/Release/ScriptomTestCSharp.tlb']
+]

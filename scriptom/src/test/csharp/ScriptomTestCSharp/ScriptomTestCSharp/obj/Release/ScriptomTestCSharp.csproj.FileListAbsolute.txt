@@ -1,0 +1,5 @@
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\csharp\ScriptomTestCSharp\ScriptomTestCSharp\obj\Release\ResolveAssemblyReference.cache
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\csharp\ScriptomTestCSharp\ScriptomTestCSharp\bin\Release\ScriptomTestCSharp.dll
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\csharp\ScriptomTestCSharp\ScriptomTestCSharp\bin\Release\ScriptomTestCSharp.pdb
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\csharp\ScriptomTestCSharp\ScriptomTestCSharp\obj\Release\ScriptomTestCSharp.dll
+C:\work\groovy\modules\scriptom\trunk\scriptom\src\test\csharp\ScriptomTestCSharp\ScriptomTestCSharp\obj\Release\ScriptomTestCSharp.pdb

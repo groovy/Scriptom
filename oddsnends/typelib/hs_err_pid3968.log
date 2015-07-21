@@ -1,0 +1,222 @@
+#
+# An unexpected error has been detected by Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x76fe2b86, pid=3968, tid=248
+#
+# Java VM: Java HotSpot(TM) Client VM (1.6.0_02-b06 mixed mode)
+# Problematic frame:
+# C  [ntdll.dll+0x62b86]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00147800):  JavaThread "main" [_thread_in_native, id=248]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x396dd222
+
+Registers:
+EAX=0x00630050, EBX=0x00000000, ECX=0x396dd212, EDX=0x02b2d50e
+ESP=0x0010d8b0, EBP=0x0010d8bc, ESI=0x001c0000, EDI=0x00209520
+EIP=0x76fe2b86, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x0010d8b0)
+0x0010d8b0:   00209520 0010d94c 00209520 0010d8d0
+0x0010d8c0:   76610206 001c0000 00000000 00630058
+0x0010d8d0:   0010d8f4 76853ef0 766de6fc 00630058
+0x0010d8e0:   00209520 0010d94c 00630058 00209520
+0x0010d8f0:   00209520 0010d910 76853df5 00630058
+0x0010d900:   9c4c02d0 00000008 002b2c18 9c4c02d0
+0x0010d910:   0010d924 76853e44 0063005c 002b2c18
+0x0010d920:   3de31980 0010d944 0166e426 002b2c18 
+
+Instructions: (pc=0x76fe2b86)
+0x76fe2b76:   10 8b c8 c1 e9 03 33 ca 33 0d 84 52 04 77 33 ce
+0x76fe2b86:   66 8b 49 10 0f b7 f9 8a 48 07 80 f9 05 0f 84 8d 
+
+
+Stack: [0x000c0000,0x00110000),  sp=0x0010d8b0,  free space=310k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x62b86]
+C  [ole32.dll+0x60206]
+C  [OLEAUT32.dll+0x3ef0]
+C  [OLEAUT32.dll+0x3df5]
+C  [OLEAUT32.dll+0x3e44]
+C  [TLBINF32.DLL+0xe426]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J  com.jacob.com.EnumVariant.Next([Lcom/jacob/com/Variant;)I
+J  org.codehaus.groovy.scriptom.ActiveXObject$VariantIterator.hasNext()Z
+J  gjdk.org.codehaus.groovy.scriptom.ActiveXObject_GroovyReflector.invoke(Lgroovy/lang/MetaMethod;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.NewInstanceMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.Invoker.invokeMethod(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+J  ExtractTlbInfo$_run_closure1_closure8_closure16.doCall(Ljava/lang/Object;)Ljava/lang/Object;
+j  sun.reflect.GeneratedMethodAccessor4.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+40
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ReflectionMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.Closure.call(Ljava/lang/Object;)Ljava/lang/Object;
+J  gjdk.org.codehaus.groovy.scriptom.ActiveXObject_GroovyReflector.invoke(Lgroovy/lang/MetaMethod;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.NewInstanceMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.Invoker.invokeMethod(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodN(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+j  ExtractTlbInfo$_run_closure1_closure8.doCall(Ljava/lang/Object;)Ljava/lang/Object;+1102
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ReflectionMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnCurrentN(Ljava/lang/Class;Lgroovy/lang/GroovyObject;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+j  ExtractTlbInfo$_run_closure1_closure8.doCall()Ljava/lang/Object;+88
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ReflectionMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.Closure.call([Ljava/lang/Object;)Ljava/lang/Object;
+j  groovy.lang.Closure.call()Ljava/lang/Object;+5
+j  org.codehaus.groovy.scriptom.Scriptom.withSTA(Lgroovy/lang/Closure;)Ljava/lang/Object;+4
+j  gjdk.org.codehaus.groovy.scriptom.Scriptom_GroovyReflector.invoke(Lgroovy/lang/MetaMethod;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+997
+J  groovy.lang.MetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeStaticMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.Invoker.invokeMethod(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodN(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+j  ExtractTlbInfo$_run_closure1.doCall(Ljava/lang/Object;)Ljava/lang/Object;+533
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.ReflectionMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;
+J  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+J  groovy.lang.Closure.call(Ljava/lang/Object;)Ljava/lang/Object;
+j  org.codehaus.groovy.runtime.DefaultGroovyMethods.each(Ljava/util/Collection;Lgroovy/lang/Closure;)V+23
+j  gjdk.java.util.ArrayList_GroovyReflector.invoke(Lgroovy/lang/MetaMethod;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+4419
+j  groovy.lang.MetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+14
+j  org.codehaus.groovy.runtime.NewInstanceMetaMethod.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+32
+j  org.codehaus.groovy.runtime.MetaClassHelper.doMethodInvoke(Ljava/lang/Object;Lgroovy/lang/MetaMethod;[Ljava/lang/Object;)Ljava/lang/Object;+14
+j  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;ZZ)Ljava/lang/Object;+711
+j  groovy.lang.MetaClassImpl.invokeMethod(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;+10
+j  org.codehaus.groovy.runtime.Invoker.invokeMethod(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;+78
+j  org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;+6
+j  org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodN(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;+3
+j  ExtractTlbInfo.run()Ljava/lang/Object;+434
+j  com.lilypepper.groovy.Groovy.run(Ljava/io/File;Ljava/util/List;)V+416
+j  com.lilypepper.groovy.CommandRunner.run([Ljava/lang/String;)V+45
+j  com.lilypepper.groovy.boot.Bootstrap.main([Ljava/lang/String;)V+87
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x015aa800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=2740]
+  0x01598000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=756]
+  0x01593800 JavaThread "Attach Listener" daemon [_thread_blocked, id=4008]
+  0x01593400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=1048]
+  0x01554400 JavaThread "Finalizer" daemon [_thread_blocked, id=1900]
+  0x01548400 JavaThread "Reference Handler" daemon [_thread_blocked, id=2348]
+=>0x00147800 JavaThread "main" [_thread_in_native, id=248]
+
+Other Threads:
+  0x01544400 VMThread [id=736]
+  0x015acc00 WatcherThread [id=2400]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 3712K, used 3321K [0x036f0000, 0x03af0000, 0x03af0000)
+  eden space 3328K,  88% used [0x036f0000, 0x039ce690, 0x03a30000)
+  from space 384K,  99% used [0x03a30000, 0x03a8fff0, 0x03a90000)
+  to   space 384K,   0% used [0x03a90000, 0x03a90000, 0x03af0000)
+ tenured generation   total 14296K, used 9341K [0x03af0000, 0x048e6000, 0x336f0000)
+   the space 14296K,  65% used [0x03af0000, 0x0440f4e0, 0x0440f600, 0x048e6000)
+ compacting perm gen  total 12288K, used 6115K [0x336f0000, 0x342f0000, 0x3b6f0000)
+   the space 12288K,  49% used [0x336f0000, 0x33ce8c18, 0x33ce8e00, 0x342f0000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x00423000 	c:\apps\jdk1.6.0_02\bin\Gosh!!!.exe
+0x76f80000 - 0x7709e000 	C:\Windows\system32\ntdll.dll
+0x764c0000 - 0x76598000 	C:\Windows\system32\kernel32.dll
+0x75850000 - 0x7590f000 	C:\Windows\system32\ADVAPI32.dll
+0x76c40000 - 0x76d03000 	C:\Windows\system32\RPCRT4.dll
+0x7c340000 - 0x7c396000 	c:\apps\jdk1.6.0_02\jre\bin\msvcr71.dll
+0x6d870000 - 0x6dab9000 	c:\apps\jdk1.6.0_02\jre\bin\client\jvm.dll
+0x77120000 - 0x771be000 	C:\Windows\system32\USER32.dll
+0x770d0000 - 0x7711b000 	C:\Windows\system32\GDI32.dll
+0x73fe0000 - 0x74013000 	C:\Windows\system32\WINMM.dll
+0x76da0000 - 0x76e4a000 	C:\Windows\system32\msvcrt.dll
+0x765b0000 - 0x766f4000 	C:\Windows\system32\ole32.dll
+0x76850000 - 0x768dc000 	C:\Windows\system32\OLEAUT32.dll
+0x73fa0000 - 0x73fd8000 	C:\Windows\system32\OLEACC.dll
+0x770b0000 - 0x770ce000 	C:\Windows\system32\IMM32.DLL
+0x76700000 - 0x767c7000 	C:\Windows\system32\MSCTF.dll
+0x75620000 - 0x7564c000 	C:\Windows\system32\apphelp.dll
+0x770a0000 - 0x770a9000 	C:\Windows\system32\LPK.DLL
+0x767d0000 - 0x7684d000 	C:\Windows\system32\USP10.dll
+0x76490000 - 0x764bd000 	C:\Windows\system32\WS2_32.dll
+0x765a0000 - 0x765a6000 	C:\Windows\system32\NSI.dll
+0x756a0000 - 0x756c1000 	C:\Windows\system32\NTMARTA.DLL
+0x76bf0000 - 0x76c39000 	C:\Windows\system32\WLDAP32.dll
+0x757a0000 - 0x757a7000 	C:\Windows\system32\PSAPI.DLL
+0x75680000 - 0x75691000 	C:\Windows\system32\SAMLIB.dll
+0x6d3c0000 - 0x6d3c8000 	c:\apps\jdk1.6.0_02\jre\bin\hpi.dll
+0x6d820000 - 0x6d82c000 	c:\apps\jdk1.6.0_02\jre\bin\verify.dll
+0x6d460000 - 0x6d47f000 	c:\apps\jdk1.6.0_02\jre\bin\java.dll
+0x6d860000 - 0x6d86f000 	c:\apps\jdk1.6.0_02\jre\bin\zip.dll
+0x001a0000 - 0x001bf000 	C:\work\gosh\bin\jacob.dll
+0x748d0000 - 0x7490f000 	C:\Windows\system32\uxtheme.dll
+0x76d10000 - 0x76d94000 	C:\Windows\system32\CLBCatQ.DLL
+0x75560000 - 0x755bf000 	C:\Windows\system32\SXS.DLL
+0x01660000 - 0x0168a000 	C:\Windows\system32\TLBINF32.DLL
+
+VM Arguments:
+jvm_args: -XX:CompileThreshold=250 -Xmx768m -Xmn4m -Xms8m -XX:MaxPermSize=128M -Dcom.lilypepper.groovy.localfolder=c:\work\gosh\. -Djava.library.path=c:\work\gosh\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Common Files\Roxio Shared\DLLShared\;C:\Program Files\Common Files\Roxio Shared\DLLShared\;C:\Program Files\Common Files\Roxio Shared\9.0\DLLShared;c:\apps\jdk1.6.0_02\bin;c:\work\apache-ant-1.6.5\bin;C:\Program Files\QuickTime\QTSystem\; -Dcom.lilypepper.groovy.runner=com.lilypepper.groovy.CommandRunner -Djava.system.class.loader=com.lilypepper.groovy.boot.GoshClassLoader
+java_command: com.lilypepper.groovy.boot.Bootstrap C:\work\scriptom\typelib\ExtractTlbInfo.groovy vista.txt
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=c:\apps\jdk1.6.0_02
+CLASSPATH=.;C:\Program Files\Java\jre1.6.0_02\lib\ext\QTJava.zip
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Common Files\Roxio Shared\DLLShared\;C:\Program Files\Common Files\Roxio Shared\DLLShared\;C:\Program Files\Common Files\Roxio Shared\9.0\DLLShared;c:\apps\jdk1.6.0_02\bin;c:\work\apache-ant-1.6.5\bin;C:\Program Files\QuickTime\QTSystem\
+USERNAME=Jason
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 15 Model 107 Stepping 1, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows Vista Build 6000 
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 15 model 107 stepping 1, cmov, cx8, fxsr, mmx, sse, sse2, sse3, mmxext, 3dnow, 3dnowext
+
+Memory: 4k page, physical 2094976k(1259536k free), swap 4194303k(3550028k free)
+
+vm_info: Java HotSpot(TM) Client VM (1.6.0_02-b06) for windows-x86, built on Jul 12 2007 01:16:14 by "java_re" with unknown MS VC++:1310
+

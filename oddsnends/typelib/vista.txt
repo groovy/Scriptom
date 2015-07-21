@@ -1,0 +1,9 @@
+//Type library locations on Windows Vista.
+[ 
+  ['sapi',               'C:/Windows/System32/Speech/Common/sapi.dll'],
+  ['scripting',          'C:/WINDOWS/System32/scrrun.dll'],
+  ['office2003',         'C:/Program Files/Common Files/Microsoft Shared/Office11/MSO.dll'],
+  ['office2003.excel',   'C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe'],
+  ['office2003.word',    'C:/Program Files/Microsoft Office/OFFICE11/MSWORD.olb'],
+  ['office2003.outlook', 'C:/Program Files/Microsoft Office/OFFICE11/MSOutl.olb']
+]

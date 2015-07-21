@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Usage with Maven</title>
+    <author email="dev@groovy.codehaus.org">Jason Smith</author>
+  </properties>
+  <body>
+    <section name="Usage with Maven">
+      <p>
+        
+      </p>
+      <subsection name="Adding Scriptom as a Dependency">
+        <p>
+          You can add <b>Scriptom</b> to a project by including it as a dependency,
+          along with the Groovy dependency. <b>Scriptom</b> is not tightly coupled 
+          to a single version of Groovy, and works with Groovy 1.5 and higher. 
+        </p>
+        <blockquote>
+          <pre><![CDATA[<dependency>
+    <groupId>org.codehaus.groovy</groupId>
+    <artifactId>groovy</artifactId>
+    <version>${groovy.version}</version>
+</dependency>
+<dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>scriptom</artifactId>
+    <version>${project.version}</version>
+</dependency>]]></pre>
+        </blockquote>
+      </subsection>
+      
+      <subsection name="Adding the Jacob DLLs">
+        <p><b>Jacob</b> is a JNI library.  This means that in addition to JAR files, you also have some DLLs
+        (Windows <i>Dynamic-Link Libraries</i>) to deal with.
+        You can include the DLLs in your project by adding them as dependencies.
+        However, this doesn't guarantee that <b>Scriptom</b> will function correctly.
+        The DLLs must be specified on the <code>java.library.path</code> or placed
+        in a folder on the system <code>PATH</code> (the environment variable).  This is
+        not something that <b>Maven</b> can handle automatically.</p>
+        <blockquote>
+          <pre><![CDATA[<dependency>
+    <groupId>net.sf.jacob-project</groupId>
+    <artifactId>jacob</artifactId>
+    <version>${jacob.version}</version>
+    <type>dll</type>
+    <classifier>x64</classifier>
+</dependency> 
+<dependency>
+    <groupId>net.sf.jacob-project</groupId>
+    <artifactId>jacob</artifactId>
+    <version>${jacob.version}</version>
+    <type>dll</type>
+    <classifier>x86</classifier>
+</dependency>]]></pre>
+        </blockquote>
+        <p>You can use the <a href="http://maven.apache.org/plugins/maven-assembly-plugin/">maven-assembly-plugin</a> to include 
+        these DLLs in a ready-to-use assembly, or you can roll your own assembly with <a href="http://gmaven.codehaus.org/">GMaven</a>
+        and a little Groovy script (with a healthy dose of <a href="http://gant.codehaus.org/">Gant</a>).  
+        Of course, we prefer the <i>groovier</i> alternative whenever possible.
+        Here is an excerpt from the <a href="../scriptom-all-assembly/index.html">scriptom-all-assembly</a>
+        project's POM that copies <b>Jacob</b> and <b>Scriptom</b> libraries, including DLLs, to an assembly folder:</p>
+        <blockquote>
+          <pre><![CDATA[['org.codehaus.groovy.modules.scriptom:scriptom', 'net.sf.jacob-project:jacob' ].each 
+{String artifactName ->
+  /*
+   * Quick check to verify I didn't mis-type a dependency declaration.
+   */
+  assert project.artifacts.any {it.id.startsWith(artifactName)}
+    
+  project.artifacts.each 
+  {Artifact artifact ->
+    if(artifact.id.startsWith(artifactName))
+    {
+      /*
+       * Copy to /bin if it's a DLL, or to /lib if it's a JAR.
+       */
+      String folder = artifact.file.name.endsWith(".dll")? "bin" : "lib"
+      ant.copy(file: artifact.file.canonicalPath, todir: new File(assemblyFolder, folder).canonicalPath);
+    }
+  }
+}]]></pre>
+          <p>For a complete listing, refer to the 
+          <a href="http://svn.codehaus.org/groovy/modules/scriptom/trunk/scriptom-all-assembly/pom.xml">scriptom-all-assembly POM source</a>.</p>
+        </blockquote>
+      </subsection>
+      
+      <subsection name="Building with GMaven">
+        <p>
+          To build Groovy files, add the following to your POM.  See <a href="http://gmaven.codehaus.org/">GMaven</a> for more information.
+        </p>
+        <blockquote>
+          <pre><![CDATA[<build>
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>${gmaven.version}</version>  
+            </plugin>
+        </plugins>
+    </pluginManagement>        
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.gmaven</groupId>
+            <artifactId>gmaven-plugin</artifactId>
+            <configuration>
+                <providerSelection>${gmaven.provider}</providerSelection>
+            </configuration> 
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generateStubs</goal>
+                        <goal>compile</goal>
+                        <goal>generateTestStubs</goal>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions> 
+        </plugin>             
+    </plugins>
+</build>]]></pre>
+        </blockquote>
+      </subsection>
+    </section>
+  </body>
+</document>

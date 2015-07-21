@@ -1,0 +1,5 @@
+
+description = 'Microsoft Office 2007 Type Libraries'
+dependencies {
+  compile project(':scriptom')
+}

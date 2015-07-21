@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Scriptom</title>
+    <author email="dev@groovy.codehaus.org">Jason Smith</author>
+  </properties>
+  <body>
+    <section name="Scriptom">
+      <p>
+		<b>Scriptom</b> is an optional Groovy module originally developed by <a href="http://glaforge.free.fr/weblog">Guillaume Laforge</a>
+		and currently maintained by Jason Smith. 
+		It combines the elegant "syntactical sugar" of Groovy with the power of the 
+		<a href="http://sourceforge.net/projects/jacob-project/">Jacob library (<b>Ja</b>va <b>CO</b>M <b>B</b>ridge)</a>. 
+		<b>Scriptom</b> lets you use <b>ActiveX</b> or <b>COM</b> Windows components from Groovy. The result is something that looks eerily 
+		similar to <i>VBScript</i> - only groovier.
+	  </p>
+
+	  <p>
+        You can use <b>Scriptom</b> to automate <b>Word</b> or <b>Excel</b> documents, control <b>Internet Explorer</b>, make your PC talk 
+		using the <b>Microsoft Speech API</b>, monitor processes with <b>WMI</b> (Windows Management Instrumentation), or browse the 
+		<b>Windows Registry</b> using <b>WShell</b> - and much more. <b>Scriptom</b> also provides an easy way to talk to custom 
+		<b>VB6</b> or <b>Microsoft.NET</b> libraries.
+	  </p>
+	  
+	  <p>
+		Needless to say, <b>Scriptom</b> can be used only on Microsoft Windows.
+	  </p>
+
+	  <p>
+	    <b>Scriptom</b> is included as an option in the <a href="http://groovy.codehaus.org/Download">Groovy Windows Installer</a>, 
+		and <b>Scriptom</b> can be downloaded from <a href="./download.html">this website</a>. The <b>Scriptom</b> codebase is stable 
+		and feature-complete. The <b>Jacob</b> project - <b>Scriptom</b>'s foundation - was started in 1999 and is being used in 
+		countless production Java applications worldwide. <b>Scriptom</b> is now in wide use as well, and has proven to be stable and mature.
+	  </p>
+
+	  <p>
+		<b>Scriptom</b> gives you all the <b>COM</b>-scripting power of <b>Jacob</b>, and it is a lot easier. 
+	  </p>
+	</section>
+  </body>
+</document>

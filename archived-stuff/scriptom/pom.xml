@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<!-- 
+		The .NET 2.0 Framework or later must be installed on the box to run the tests
+		for this POM.  If you are not running on a Windows box, you must explicitly disable
+		testing.
+	-->
+	<parent>
+        <groupId>org.codehaus.groovy.modules.scriptom</groupId>
+        <artifactId>scriptom-module-pom</artifactId>
+        <version>1.6.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>scriptom</artifactId>
+    <name>Scriptom</name>
+    <description>Windows COM scripting library for Groovy, based on the JACOB COM bridge for Java.</description>
+    <build>
+		<plugins>
+		    <plugin>
+			<groupId>org.codehaus.gmaven</groupId>
+			<artifactId>gmaven-plugin</artifactId>
+			<configuration>
+			  <providerSelection>1.6</providerSelection>
+			</configuration> 
+			<executions>
+			  <execution>
+				<id>Register Test COM Library</id>
+				<phase>generate-test-resources</phase>
+				<goals><goal>execute</goal></goals>
+				<configuration>
+				  <source>
+				  <![CDATA[
+				        /*
+						 * This will register the Visual Basic DLL used to test the majority of Scriptom. 
+						 * This requires Windows, and it requires the the .NET 2.0 Framework or later be
+						 * installed.  
+						 */
+						File windowsRoot = new File(System.getenv("SystemRoot"))
+						File dotnetFolder = new File(windowsRoot, "Microsoft.NET/Framework/v2.0.50727").canonicalFile
+						File regasm = new File(dotnetFolder, "RegAsm.exe").canonicalFile
+						assert regasm.isFile(), "${regasm} not found."
+						
+						File vbTestLib = new File(project.basedir, "src/test/visualbasic/ScriptomTestVB/bin/Release/ScriptomTestVB.dll").canonicalFile
+						assert vbTestLib.isFile(), "${vbTestLib} not found."
+						
+						String command = "\"${regasm}\" \"${vbTestLib}\" /codebase /tlb \"${vbTestLib.name}.tlb\""
+						log.info "Running $command"
+						Process process = command.execute()
+						process.consumeProcessOutput(System.out, System.err)
+						process.waitFor()
+						assert process.exitValue() == 0, "RegAsm process did not function properly on VB test library.  Return value was ${process.exitValue()}."
+						
+						File csTestLib = new File(project.basedir, "src/test/csharp/ScriptomTestCSharp/ScriptomTestCSharp/bin/Release/ScriptomTestCSharp.dll").canonicalFile
+						assert csTestLib.isFile(), "${csTestLib} not found."
+						
+						command = "\"${regasm}\" \"${csTestLib}\" /codebase /tlb \"${csTestLib.name}.tlb\""
+						log.info "Running $command"
+						process = command.execute()
+						process.consumeProcessOutput(System.out, System.err)
+						process.waitFor()
+						assert process.exitValue() == 0, "RegAsm process did not function properly on C# test library.  Return value was ${process.exitValue()}."
+				  ]]>
+				  </source>
+				</configuration>
+			  </execution>
+			</executions> 
+		  </plugin>            
+		</plugins>
+    </build>
+</project>
