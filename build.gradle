@@ -6,6 +6,7 @@ buildscript {
 
     dependencies {
         classpath "com.netflix.nebula:gradle-extra-configurations-plugin:2.2.2"
+        classpath group: 'net.sf.jacob-project', name: 'jacob', version: '1.14.3'
     }
 }
 
@@ -42,8 +43,8 @@ subprojects {
         compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer
         testCompile 'junit:junit:4.11'
 //        testCompile group: 'org.codehaus.groovy', name: 'groovy', version: groovyVer
-//        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x64'
-//        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x86'
+        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x64', ext:'dll'
+        compile group: 'net.sf.jacob-project', name: 'jacob', version: jacobVer, classifier:'x86', ext:'dll'
     }
 
     // Probably want to go 1.6 here anyway
@@ -60,5 +61,19 @@ subprojects {
     artifacts{
         archives packageSources
     }
-
+    
+    sourceSets {
+      test {
+        resources {
+          srcDir "$buildDir/test-resources"
+        }
+      }
+    }
+    
+    compileTestGroovy.doLast {	
+        File testResources = new File("$buildDir/test-resources")
+        testResources.mkdirs()
+        File dll = configurations.compile.find {it.name == "jacob-$jacobVer-${com.jacob.com.LibraryLoader.shouldLoad32Bit()?'x86':'x64'}.dll"}
+        new File(testResources, '/jacob-dll-path.properties').withWriter {it << 'jacob.dll.path=' + dll.canonicalPath.replace('\\', '/')}
+    }
 }
