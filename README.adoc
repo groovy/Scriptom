@@ -1,8 +1,6 @@
-= Let's revive Scriptom !!
+= What is Scriptom
 
-Unfortunately the Scriptom project was lost with the closure of Codehaus. This is an attempt to resurrect it.
-
-== What is Scriptom
+**Note**: __Scriptom is not actively maintained.__
 
 **Scriptom** provides a simple yet powerful COM library for Groovy. It is implemented as a thin layer around [JACOB (Java COM Bridge)](https://sourceforge.net/projects/jacob-project/). JACOB is a mature open-source library for Java that supports communicating with COM libraries and automation servers on Microsoft Windows.
 
@@ -16,7 +14,7 @@ Unfortunately the Scriptom project was lost with the closure of Codehaus. This i
 
 Visual Basic was never this easy!
 
-=== Supported Variant Types and Translation Notes
+== Supported Variant Types and Translation Notes
 
 [cols="5*",options="header"]
 |===
@@ -28,7 +26,7 @@ Visual Basic was never this easy!
 | Int   |Yes|`Integer`|`Long`|A `Long` in VB6 represents a 32-bit signed value.
 | Long  |Yes|`Long/BigInteger`| |A 64-bit signed value. Supported by .NET. `BigInteger` supports arbitrary-precision integers, so there may be errors associated with converting a `BigInteger` to a 64-bit integer.
 
-|===
+|==
 
 By default, all Variants in **Scriptom** are passed by value (not `byref`). Note that it is safe to pass values `byval` 
 even when the method argument is marked as 'byref.' In COM, 'byref' arguments allow a method to change a value which is 
